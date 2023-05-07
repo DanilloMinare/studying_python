@@ -57,7 +57,7 @@ class Velha:
         print(" | ".join(str(elemento) for elemento in linha2.values()))
         print(" | ".join(str(elemento) for elemento in linha3.values())) 
 
-    
+#teste
 
 
     def jogar(self,jogada):
