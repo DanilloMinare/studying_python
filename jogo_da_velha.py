@@ -1,7 +1,7 @@
 import random
 import os
 
-os.system('cls')
+# os.system('cls')
 
 class Velha:
     def __init__(self):
