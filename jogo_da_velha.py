@@ -68,3 +68,5 @@ jogo = Velha()
 jogo.apresentacao()
 jogo.menu()
 jogo.mapa_partida(1)
+
+#Pull
