@@ -1,5 +1,6 @@
 import random
 import os
+from time import sleep
 
 # os.system('cls')
 
@@ -7,14 +8,19 @@ class Velha:
     def __init__(self):
         self.tabuleiro = [i for i in range(9)]
         self.lances = {}
+        self.jogadas = [i for i in range(9)]
+        self.partida = 1
+        self.total_jogadas = 0
         self.reiniciar_partida()
     
     def reiniciar_partida(self):
         self.lances = {i: ' ' for i in self.tabuleiro}
+        self.jogadas = [i for i in range(9)]
+        self.partida = 1
+        self.total_jogadas = 0
 
     def menu(self):
         #self.apresentacao()
-        self.mapa_partida(0)
         self.menu_jogada()
         
     
@@ -27,8 +33,9 @@ class Velha:
 
     def menu_jogada(self):
         print('')
-        print('Com base no mapa acima, selecione a posição que deseja marcar:')
-        jogada = input()
+        print('Com base no mapa abaixo, selecione a posição que deseja marcar:')
+        self.mapa_partida(0)
+        jogada = int(input())
         self.jogar(jogada)
         
 
@@ -53,20 +60,111 @@ class Velha:
                 formatacao = '\33[m'
                 linha3[i] = mapa[i]  
                 linha3[i] = formatacao + linha3[i]
-        print(" | ".join(str(elemento) for elemento in linha1.values()))
+        print(" | ".join(str(elemento) for  elemento in linha1.values()))
         print(" | ".join(str(elemento) for elemento in linha2.values()))
         print(" | ".join(str(elemento) for elemento in linha3.values())) 
 
 
     def jogar(self,jogada):
-        print('Jogou!')
+        if self.jogadas[jogada] == jogada:
+            self.lances[jogada] = 'x'
+            self.jogadas[jogada] = 11
+            print('')
+            self.mapa_partida(1)
+            sleep(1)
+            self.validar('Você')
+            self.total_jogadas += 1
+            if self.partida == 1:
+                self.pc_jogada()
+        else: 
+            print('Já existe uma jogada nesse campo!')
+            sleep(2)
+            
+        
+    def pc_jogada(self):
+        print('')
+        while True:
+            pc = int(random.randint(0,8))
+            print(pc)
+            if self.jogadas[pc] == pc:
+                self.lances[pc] = 'o'
+                self.jogadas[pc] = 11
+                self.total_jogadas += 1
+                break
+            elif self.total_jogadas >= 9:
+                break  
+        self.mapa_partida(1)
+        self.validar('pc')
 
+    def validar(self,jogador):         
+         if self.lances[0] == 'x' and self.lances[1] == 'x' and self.lances[2] == 'x':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[3] == 'x' and self.lances[4] == 'x' and self.lances[5] == 'x':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[6] == 'x' and self.lances[7] == 'x' and self.lances[8] == 'x':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[0] == 'x' and self.lances[3] == 'x' and self.lances[6] == 'x':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[1] == 'x' and self.lances[4] == 'x' and self.lances[7] == 'x':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[2] == 'x' and self.lances[5] == 'x' and self.lances[8] == 'x':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[0] == 'x' and self.lances[4] == 'x' and self.lances[8] == 'x':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[2] == 'x' and self.lances[4] == 'x' and self.lances[6] == 'x':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0 
+         elif self.lances[0] == 'o' and self.lances[1] == 'o' and self.lances[2] == 'o':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[3] == 'o' and self.lances[4] == 'o' and self.lances[5] == 'o':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[6] == 'o' and self.lances[7] == 'o' and self.lances[8] == 'o':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[0] == 'o' and self.lances[3] == 'o' and self.lances[6] == 'o':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[1] == 'o' and self.lances[4] == 'o' and self.lances[7] == 'o':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[2] == 'o' and self.lances[5] == 'o' and self.lances[8] == 'o':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[0] == 'o' and self.lances[4] == 'o' and self.lances[8] == 'o':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0
+         elif self.lances[2] == 'o' and self.lances[4] == 'o' and self.lances[6] == 'o':
+            print('{} ganhou!!'.format(jogador))
+            self.partida = 0 
+         elif self.total_jogadas >= 9:
+            print('Deu velha!!')
+            self.partida = 0 
+        
+
+    def play(self):
+        while self.partida == 1:
+            jogo.menu_jogada()
 
 
 jogo = Velha()
-
 jogo.apresentacao()
-jogo.menu()
-jogo.mapa_partida(1)
-
-#Pull
+while True :
+    jogo.play()
+    print('Deseja jogar novamente? 0 - Sim | 1 - Não ')
+    valid = input()
+    if valid == '1':
+        break
+    else: 
+        print('Vamos jogar novamente!')
+    jogo.reiniciar_partida()
+    sleep(1)
+    
